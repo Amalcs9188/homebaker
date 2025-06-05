@@ -48,7 +48,7 @@ export default function Header() {
         >
           <Link href="/" className="-m-1.5 p-1.5">
             <span className="font-playfair text-2xl font-bold tracking-tight text-amber-700 dark:text-amber-400">
-              Home Maker calicut
+              Home Maker
             </span>
           </Link>
           <div className="hidden lg:flex lg:gap-x-8">
