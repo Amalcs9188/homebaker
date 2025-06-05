@@ -129,7 +129,7 @@ export default function Header() {
             <div className="flex items-center justify-between p-4">
               <Link href="/" className="-m-1.5 p-1.5" onClick={() => setMobileMenuOpen(false)}>
                 <span className="font-playfair text-2xl font-bold tracking-tight text-amber-700 dark:text-amber-400">
-                  Sweet Delights
+                  Home Maker
                 </span>
               </Link>
               <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(false)}>
