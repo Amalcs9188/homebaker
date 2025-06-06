@@ -13,9 +13,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   if (req.method === 'POST') {
     const { action } = req.body;
+    
     if (action === 'add') {
-      const { name, description, price } = req.body;
-      const result = await db.collection('products').insertOne({ name, description, price });
+      const { name, description, price ,image } = req.body;
+    
+      console.log(image);
+      
+      const result = await db.collection('products').insertOne({ name, description, price ,image});
       res.status(201).json({ insertedId: result.insertedId });
     }
     if (action === 'update') {
