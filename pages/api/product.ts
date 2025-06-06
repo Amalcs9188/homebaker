@@ -1,8 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { createRouter } from 'next-connect';
 import { connectToDatabase } from '@/lib/db';
-import { upload } from '@/middleware/multer';
 import { ObjectId } from 'mongodb';
+import cloudinary from '@/lib/cloudinary';
+import { upload } from '@/middleware/multer';
+import fs from 'fs';
+
+
+
 
 
 interface ExtendedRequest extends NextApiRequest {
@@ -36,13 +41,20 @@ handler.use(async (req, res, next) => {
 handler.post(async (req, res) => {
   const { db } = await connectToDatabase();
   const action = req.body.action;
+  
+  if (!req.file) {
+    return res.status(400).json({ error: 'No file uploaded' });
+    
+  }
+  const filePath = req.file.path;
+  const result = await cloudinary.uploader.upload(filePath);
+  const image = result.secure_url;
+  fs.unlinkSync(filePath);
 
   if (action === 'create') {
     const { name, description, price } = req.body;
-    const image = req.file ? `/uploads/${req.file.filename}` : '';
-    console.log(image);
-    
-
+ 
+    // cloudinary
     const result = await db.collection('products').insertOne({
       name,
       description,
